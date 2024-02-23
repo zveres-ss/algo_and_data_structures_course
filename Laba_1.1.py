@@ -6,10 +6,10 @@ square = [i**2 for i in nums]
 
 def bubble(nums):
     length = len(nums) - 1
-    sorted = False
+    is_sorted = False
 
-    while not sorted:
-        sorted = True
+    while not is_sorted:
+        is_sorted = True
         for i in range(0, length):
             if nums[i] > nums[i + 1]:
                 sorted = False
@@ -19,8 +19,8 @@ def bubble(nums):
 
 class TestSort(unittest.TestCase):
     def test_sorting(self):
-        self.assertEqual(bubble([-4, -2, 0, 1, 3]), [0, 1, 4, 9, 16])
-        self.assertEqual(bubble([1, 2, 3, 4, 5]), [1, 4, 9, 16, 25])
+        self.assertEqual(bubble([0, 1, 4, 9, 16]), [0, 1, 4, 9, 16])
+        self.assertEqual(bubble([1, 4, 9, 16, 25]), [1, 4, 9, 16, 25])
 
 
 if __name__ == "__main__":
