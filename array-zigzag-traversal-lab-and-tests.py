@@ -37,19 +37,17 @@ def diag_down(i, j, n, m, arr, result_arr):
     return i, j
 
 
-# крок вправо
-def go_right(i, j, n, m, arr, result_arr):
-    if j != m - 1:
-        j += 1
+def go_left(i, j, n, m, arr, result_arr):
+    if 0 < j <= m - 1:
+        j -= 1
         curr_val = arr[i][j]
         result_arr.append(curr_val)
     return i, j
 
 
-# крок вниз
-def go_down(i, j, n, m, arr, result_arr):
-    if i != n - 1:
-        i += 1
+def go_up(i, j, n, m, arr, result_arr):
+    if i != 0:
+        i -= 1
         curr_val = arr[i][j]
         result_arr.append(curr_val)
     return i, j
@@ -59,13 +57,12 @@ def arr_zigzag_traverse(arr, n, m):
     result_arr = []
     # ЛОКАЛЬНІ і та j це значення індексів в масиві, де і відповідає за ряки (n)
     # а j - за стовпці (m)
-    i = 0
-    j = 0
-     # поточне значення (1), записується в одновимірний масив
-    curr_val = arr[i][j]
+    i = n - 1
+    j = m - 1
+    curr_val = arr[i][j]    # поточне значення (1), записується в одновимірний масив
     result_arr.append(curr_val)
 
-    # якшо масив де-факто одновимірний виводим його
+    # якшо масив де-факто одновимірний то виводим його
     if m == 1:
         for i in range(1, len(arr)):
             result_arr.append(arr[i])
@@ -74,29 +71,25 @@ def arr_zigzag_traverse(arr, n, m):
     # цикл дійсний поки і в межах рядків, а j - в межах стовпців
     while 0 <= i <= n - 1 and 0 <= j <= m - 1:
         # якшо стоїмо на передостанньому елементі,
-        # просто рухаємся вправо і виходим
-        if i == n - 1 and j == m - 2:
-            go_right(i, j, n, m, arr, result_arr)
+        # просто рухаємся вліво і виходим
+        if i == 0 and j == 1:
+            go_left(i, j, n, m, arr, result_arr)
             return result_arr
-        # якшо стоїмо на першому рядку, але не останньому стовпчику ->
-        # -> рухаємся вправо а потім по діагоналі вниз
-        elif i == 0 and j >= 0 and j != m - 1:
-            i, j = go_right(i, j, n, m, arr, result_arr)
+
+        elif i == n - 1 and 0 < j <= m - 1:
+            i, j = go_left(i, j, n, m, arr, result_arr)
+            i, j = diag_up(i, j, n, m, arr, result_arr)
+
+        elif 0 < i <= n - 1 and j == m - 1:
+            i, j = go_up(i, j, n, m, arr, result_arr)
             i, j = diag_down(i, j, n, m, arr, result_arr)
-        # якшо стоїмо на останньому рядку, але не на останньому стовпчику ->
-        # -> рухаємся вправо і по діагоналі вгору
-        elif i == n - 1 and j >= 0 and j != m - 1:
-            i, j = go_right(i, j, n, m, arr, result_arr)
+
+        elif 0 < i <= n - 1 and j == 0:
+            i, j = go_up(i, j, n, m, arr, result_arr)
             i, j = diag_up(i, j, n, m, arr, result_arr)
-        # якшо стоїмо на крайньому лівому стовпчику ->
-        # -> рухаємся вниз на рядок а потім по діагоналі вгору
-        elif i != n - 1 and j == 0:
-            i, j = go_down(i, j, n, m, arr, result_arr)
-            i, j = diag_up(i, j, n, m, arr, result_arr)
-        # якшо стоїмо на останньому стовпчику ->
-        # -> рухаємся вниз на рядок і по діагоналі вниз
-        elif j == m - 1:
-            i, j = go_down(i, j, n, m, arr, result_arr)
+
+        elif i == 0:
+            i, j = go_left(i, j, n, m, arr, result_arr)
             i, j = diag_down(i, j, n, m, arr, result_arr)
 
 
