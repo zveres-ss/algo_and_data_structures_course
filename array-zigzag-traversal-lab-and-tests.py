@@ -17,6 +17,7 @@
 import unittest
 
 
+# діагональ вправо-вгору, межі - до верху масиву (і = 0)
 def diag_up(i, j, n, m, arr, result_arr):
     while 0 < i <= n - 1 and 0 <= j <= m - 2:
         i -= 1
@@ -26,6 +27,7 @@ def diag_up(i, j, n, m, arr, result_arr):
     return i, j
 
 
+# діагональ вліво-вниз, межі - до лівого краю масиву (j = 0)
 def diag_down(i, j, n, m, arr, result_arr):
     while 0 <= i <= n - 2 and 0 < j <= m - 1:
         i += 1
@@ -35,6 +37,7 @@ def diag_down(i, j, n, m, arr, result_arr):
     return i, j
 
 
+# крок вправо
 def go_right(i, j, n, m, arr, result_arr):
     if j != m - 1:
         j += 1
@@ -43,6 +46,7 @@ def go_right(i, j, n, m, arr, result_arr):
     return i, j
 
 
+# крок вниз
 def go_down(i, j, n, m, arr, result_arr):
     if i != n - 1:
         i += 1
@@ -57,12 +61,15 @@ def arr_zigzag_traverse(arr, n, m):
     # а j - за стовпці (m)
     i = 0
     j = 0
-    curr_val = arr[i][j]    # поточне значення (1), записується в одновимірний масив
+     # поточне значення (1), записується в одновимірний масив
+    curr_val = arr[i][j]
     result_arr.append(curr_val)
 
     # якшо масив де-факто одновимірний виводим його
     if m == 1:
-        return arr
+        for i in range(1, len(arr)):
+            result_arr.append(arr[i])
+        return result_arr
 
     # цикл дійсний поки і в межах рядків, а j - в межах стовпців
     while 0 <= i <= n - 1 and 0 <= j <= m - 1:
