@@ -38,9 +38,17 @@ def error(k, num):
 
 
 def k_founder(array, k):
-    sort(0, array, len(array) - 1)
-    return array[-k], array.index(array[-k]) + 1
-
+    left = 0
+    right = len(array) - 1
+    
+    while True:
+        pivot_index = partition(left, array, right)
+        if pivot_index == len(array) - k:
+            return array[pivot_index], pivot_index + 1
+        elif pivot_index < len(array) - k:
+            left = pivot_index + 1
+        else:
+            right = pivot_index - 1
 
 
 result, position = k_founder(array, k)
