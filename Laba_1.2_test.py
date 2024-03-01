@@ -1,5 +1,6 @@
 import unittest
-
+from Laba_1.2.py import sort
+from Laba_1.2.py import k_founder
 
 class TestCode(unittest.TestCase):
     def test_sort(self):

@@ -1,54 +1,46 @@
-def sort(left, array, right):
+array = [15, 7, 22, 9, 36, 2, 42, 18]
+sorted_array = array.copy()
+
+def sort(left, sorted_array, right):
     if left < right:
-        partition_pos = partition(left, array, right)
-        sort(left, array, partition_pos - 1)
-        sort(partition_pos + 1, array, right)
+        partition_pos = partition(left, sorted_array, right)
+        sort(left, sorted_array, partition_pos - 1)
+        sort(partition_pos + 1, sorted_array, right)
 
 
-def partition(left, array, right):
+def partition(left, sorted_array, right):
     i = left
     j = right - 1
-    p = array[right]
+    p = sorted_array[right]
 
     while i < j: 
-        while i < right and array[i] < p:
+        while i < right and sorted_array[i] < p:
             i += 1
-        while j > left and array[j] >= p:
+        while j > left and sorted_array[j] >= p:
             j -= 1
 
         if i < j:
-            array[i], array[j] = array[j], array[i]
+            sorted_array[i], sorted_array[j] = sorted_array[j], sorted_array[i]
 
-    if array[i] > p:
-        array[i], array[right] = array[right], array[i]
+    if sorted_array[i] > p:
+        sorted_array[i], sorted_array[right] = sorted_array[right], sorted_array[i]
 
     return i
 
-
-array = [15, 7, 22, 9, 36, 2, 42, 18]
-sort(0, array, len(array) - 1)
-print(array)
+sort(0, sorted_array, len(sorted_array) - 1)
+print(sorted_array)
 
 k = int(input())
-
 
 def error(k, num):
     if k < 1 or k > len(array):
         return ValueError
 
-
 def k_founder(array, k):
-    left = 0
-    right = len(array) - 1
-    
-    while True:
-        pivot_index = partition(left, array, right)
-        if pivot_index == len(array) - k:
-            return array[pivot_index], pivot_index + 1
-        elif pivot_index < len(array) - k:
-            left = pivot_index + 1
-        else:
-            right = pivot_index - 1
+    nums_sorted = sorted(array, reverse=True)
+    k_largest = nums_sorted[k - 1]
+    index = array.index(k_largest)
+    return k_largest, index
 
 
 result, position = k_founder(array, k)
