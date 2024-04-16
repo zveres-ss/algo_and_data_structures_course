@@ -48,11 +48,10 @@ def sort_partition(first, free_sections, last):
 sort(0, free_sections, len(free_sections) - 1)
 
 def check_placing_cows(free_sections, min_distance, happy_cows):
-    F = len(free_sections)
-    happy_cows = 1
+    happy_cows = 2
     last_c = free_sections[0]
 
-    for i in range(1, F):
+    for i in range(1, N):
         if free_sections[i] - last_c >= min_distance:
             happy_cows += 1
             last_c = free_sections[i]
@@ -62,9 +61,9 @@ def check_placing_cows(free_sections, min_distance, happy_cows):
             return True
     return False
 
-def search(C, F):
+def search(C, N):
     left = 1
-    right = free_sections[F - 1] - free_sections[0]
+    right = free_sections[N - 1] - free_sections[0]
 
     while left <= right:
         mid = (left + right) // 2
