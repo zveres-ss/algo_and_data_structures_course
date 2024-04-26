@@ -30,7 +30,7 @@ def partition(left, sorted_array, right):
 sort(0, sorted_array, len(sorted_array) - 1)
 print(sorted_array)
 
-k = int(input())
+k = 4
 
 def error(k, num):
     if k < 1 or k > len(array):
